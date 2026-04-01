@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RSVP Dashboard — Sarah & James</title>
+  <meta name="description" content="Admin dashboard for managing wedding RSVPs."/>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body class="admin-body">
+
+  <!-- LOGIN SCREEN -->
+  <div class="login-screen" id="login-screen">
+    <div class="login-card">
+      <div class="botanical" aria-hidden="true" style="margin-bottom:1rem">
+        <svg viewBox="0 0 120 50" width="100">
+          <g fill="none" stroke="#9c845a" stroke-width="0.8" opacity="0.55">
+            <path d="M60 25 Q40 8 20 20"/><path d="M60 25 Q80 8 100 20"/>
+            <circle cx="60" cy="25" r="3" fill="#9c845a" stroke="none"/>
+          </g>
+        </svg>
+      </div>
+      <h1 class="login-title">Admin Access</h1>
+      <p class="login-sub">Enter your email to receive a magic login link</p>
+
+      <div id="login-form-wrap">
+        <div class="field">
+          <label for="admin-email">Email address</label>
+          <input type="email" id="admin-email" placeholder="your@email.com" autocomplete="email"/>
+        </div>
+        <button class="btn-submit" id="magic-link-btn">Send magic link</button>
+        <p class="login-error" id="login-error" hidden></p>
+      </div>
+
+      <div id="login-sent" hidden>
+        <div class="sent-icon">✉</div>
+        <p class="sent-msg">Check your inbox! A login link has been sent. You can close this tab.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="dashboard" id="dashboard" hidden>
+
+    <header class="dash-header">
+      <div>
+        <h1 class="dash-title"><em>Sarah &amp; James</em> — RSVPs</h1>
+        <p class="dash-sub" id="dash-date">Loading…</p>
+      </div>
+      <div class="dash-actions">
+        <button class="btn-export" id="export-btn" title="Download CSV">⬇ Export CSV</button>
+        <button class="btn-darkmode" id="darkmode-btn" title="Toggle dark mode">🌙</button>
+        <button class="btn-logout" id="logout-btn">Sign out</button>
+      </div>
+    </header>
+
+    <!-- Stats bar -->
+    <div class="stats-bar" id="stats-bar">
+      <div class="stat-card">
+        <span class="stat-num" id="stat-total">—</span>
+        <span class="stat-label">Total replies</span>
+      </div>
+      <div class="stat-card stat-guests">
+        <span class="stat-num" id="stat-guests">—</span>
+        <span class="stat-label">Total guests</span>
+      </div>
+      <div class="stat-card stat-yes">
+        <span class="stat-num" id="stat-yes">—</span>
+        <span class="stat-label">Attending</span>
+      </div>
+      <div class="stat-card stat-no">
+        <span class="stat-num" id="stat-no">—</span>
+        <span class="stat-label">Not attending</span>
+      </div>
+      <div class="stat-card stat-comment">
+        <span class="stat-num" id="stat-comment">—</span>
+        <span class="stat-label">Left a note</span>
+      </div>
+    </div>
+
+    <!-- Toolbar: Search + Filters -->
+    <div class="toolbar">
+      <input type="text" class="search-input" id="search-input" placeholder="Search by name…" autocomplete="off"/>
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="yes">Attending</button>
+        <button class="filter-btn" data-filter="no">Not attending</button>
+        <button class="filter-btn" data-filter="comment">With notes</button>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrap">
+      <table class="rsvp-table" id="rsvp-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Guests</th>
+            <th>Attending</th>
+            <th>Dietary</th>
+            <th>Song</th>
+            <th>Note</th>
+            <th>Received</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="rsvp-tbody">
+          <!-- Skeleton loading rows -->
+          <tr class="skeleton-row"><td><div class="skeleton-bar w-sm"></div></td><td><div class="skeleton-bar w-lg"></div></td><td><div class="skeleton-bar w-sm"></div></td><td><div class="skeleton-bar w-md"></div></td><td><div class="skeleton-bar w-md"></div></td><td><div class="skeleton-bar w-md"></div></td><td><div class="skeleton-bar w-xl"></div></td><td><div class="skeleton-bar w-md"></div></td><td></td></tr>
+          <tr class="skeleton-row"><td><div class="skeleton-bar w-sm"></div></td><td><div class="skeleton-bar w-lg"></div></td><td><div class="skeleton-bar w-sm"></div></td><td><div class="skeleton-bar w-md"></div></td><td><div class="skeleton-bar w-md"></div></td><td><div class="skeleton-bar w-md"></div></td><td><div class="skeleton-bar w-xl"></div></td><td><div class="skeleton-bar w-md"></div></td><td></td></tr>
+          <tr class="skeleton-row"><td><div class="skeleton-bar w-sm"></div></td><td><div class="skeleton-bar w-lg"></div></td><td><div class="skeleton-bar w-sm"></div></td><td><div class="skeleton-bar w-md"></div></td><td><div class="skeleton-bar w-md"></div></td><td><div class="skeleton-bar w-md"></div></td><td><div class="skeleton-bar w-xl"></div></td><td><div class="skeleton-bar w-md"></div></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Delete confirmation modal (injected by JS) -->
+    <div id="modal-root"></div>
+
+    <footer class="dash-footer">
+      <p>New responses appear automatically · <a href="index.html" target="_blank">View invite page ↗</a></p>
+    </footer>
+  </div>
+
+  <script type="module" src="admin.js"></script>
+</body>
+</html>
