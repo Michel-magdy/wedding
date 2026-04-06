@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>RSVP Dashboard — Sarah & James</title>
+  <title>RSVP Dashboard — Sandra & Mark</title>
   <meta name="description" content="Admin dashboard for managing wedding RSVPs."/>
   <link rel="stylesheet" href="style.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
@@ -36,6 +36,7 @@
       <div id="login-sent" hidden>
         <div class="sent-icon">✉</div>
         <p class="sent-msg">Check your inbox! A login link has been sent. You can close this tab.</p>
+        <button class="btn-submit" id="back-to-login-btn" style="margin-top:1rem;background:transparent;border:1px solid var(--border);color:var(--text-muted)">Try another email</button>
       </div>
     </div>
   </div>
@@ -45,7 +46,7 @@
 
     <header class="dash-header">
       <div>
-        <h1 class="dash-title"><em>Sarah &amp; James</em> — RSVPs</h1>
+        <h1 class="dash-title"><em>Sandra &amp; Mark</em> — RSVPs</h1>
         <p class="dash-sub" id="dash-date">Loading…</p>
       </div>
       <div class="dash-actions">
@@ -99,7 +100,6 @@
             <th>Name</th>
             <th>Guests</th>
             <th>Attending</th>
-            <th>Dietary</th>
             <th>Song</th>
             <th>Note</th>
             <th>Received</th>

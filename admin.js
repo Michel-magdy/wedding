@@ -73,6 +73,17 @@ magicBtn.addEventListener('click', async () => {
   }
 })
 
+// ─── Back to login from sent state ───────────────────────────
+const backToLoginBtn = document.getElementById('back-to-login-btn')
+backToLoginBtn?.addEventListener('click', () => {
+  loginSent.hidden = true
+  loginFormWrap.hidden = false
+  magicBtn.disabled = false
+  magicBtn.textContent = 'Send magic link'
+  emailInput.value = ''
+  emailInput.focus()
+})
+
 // ─── Handle magic link redirect ──────────────────────────────
 supabase.auth.onAuthStateChange((_event, session) => {
   if (session) showDashboard()
@@ -173,7 +184,6 @@ function renderTable () {
           ${r.is_coming ? '✓ Yes' : '✗ No'}
         </span>
       </td>
-      <td>${r.dietary_needs ? `<span style="font-size:0.82rem">${esc(r.dietary_needs)}</span>` : '<span class="no-note">—</span>'}</td>
       <td>${r.song_request ? `<span style="font-size:0.82rem;font-style:italic">🎵 ${esc(r.song_request)}</span>` : '<span class="no-note">—</span>'}</td>
       <td>
         ${r.comment
@@ -256,14 +266,13 @@ function confirmDelete (id) {
 exportBtn.addEventListener('click', () => {
   if (allRsvps.length === 0) return
 
-  const headers = ['Name', 'Phone', 'Email', 'Attending', 'Guests', 'Dietary', 'Song Request', 'Note', 'Date']
+  const headers = ['Name', 'Phone', 'Email', 'Attending', 'Guests', 'Song Request', 'Note', 'Date']
   const rows = allRsvps.map(r => [
     r.full_name || r.name || '',
     r.phone || '',
     r.email || '',
     r.is_coming ? 'Yes' : 'No',
     r.guest_count || 1,
-    r.dietary_needs || '',
     r.song_request || '',
     r.comment || '',
     formatDate(r.created_at)

@@ -32,6 +32,7 @@ form.addEventListener('submit', async (e) => {
   const email        = form.email?.value.trim() || null
   const coming       = form.coming?.value
   const guestCount   = parseInt(guestCountEl.value, 10) || 1
+  const songRequest  = form.song_request?.value.trim() || null
   const comment      = form.comment.value.trim() || null
 
   // ─── Validation ──────────────────────────────────────────
@@ -60,10 +61,11 @@ form.addEventListener('submit', async (e) => {
   const { error } = await supabase
     .from('rsvps')
     .insert({
-      full_name:   fullName,
+      full_name:    fullName,
       email,
-      is_coming:   coming === 'yes',
-      guest_count: guestCount,
+      is_coming:    coming === 'yes',
+      guest_count:  guestCount,
+      song_request: songRequest,
       comment
     })
 

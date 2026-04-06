@@ -93,16 +93,18 @@
           </select>
         </div>
 
-        <!-- Dietary / Well Wishes combined field -->
+        <!-- Song Request -->
         <div class="field">
-          <label for="comment">Dietary Requirements or Well Wishes</label>
-          <textarea id="comment" name="comment" rows="3"
-            placeholder="Please mention any allergies or share a note..."></textarea>
+          <label for="song-request">Song Request</label>
+          <input type="text" id="song-request" name="song_request" placeholder="What song gets you on the dance floor?" />
         </div>
 
-        <!-- Hidden fields for data we still collect -->
-        <input type="hidden" id="dietary" name="dietary_needs" value="" />
-        <input type="hidden" id="song-request" name="song_request" value="" />
+        <!-- Well Wishes -->
+        <div class="field">
+          <label for="comment">Well Wishes</label>
+          <textarea id="comment" name="comment" rows="3"
+            placeholder="Share a note with the couple..."></textarea>
+        </div>
 
         <button type="submit" class="btn-confirm" id="submit-btn">
           <span class="btn-text">Confirm Attendance</span>
