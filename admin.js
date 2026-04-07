@@ -68,8 +68,10 @@ magicBtn.addEventListener('click', async () => {
     magicBtn.disabled = false
     magicBtn.textContent = 'Send magic link'
   } else {
+    emailInput.value = ''
     loginFormWrap.hidden = true
     loginSent.hidden = false
+    loginScreen.scrollTo({ top: 0, behavior: 'smooth' })
   }
 })
 
