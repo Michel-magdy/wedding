@@ -11,9 +11,8 @@
 <body class="admin-body">
 
   <!-- LOGIN SCREEN -->
-  <div class="login-screen" id="login-screen">
+  <div class="login-screen" id="login-screen" hidden>
     <div class="login-card">
-      <div id="login-form-wrap">
         <div class="botanical" aria-hidden="true" style="margin-bottom:1rem">
           <svg viewBox="0 0 120 50" width="100">
             <g fill="none" stroke="#9c845a" stroke-width="0.8" opacity="0.55">
@@ -23,20 +22,17 @@
           </svg>
         </div>
         <h1 class="login-title">Admin Access</h1>
-        <p class="login-sub">Enter your email to receive a magic login link</p>
+        <p class="login-sub">Sign in with your credentials</p>
         <div class="field">
           <label for="admin-email">Email address</label>
           <input type="email" id="admin-email" placeholder="your@email.com" autocomplete="email"/>
         </div>
-        <button class="btn-submit" id="magic-link-btn">Send magic link</button>
+        <div class="field">
+          <label for="admin-password">Password</label>
+          <input type="password" id="admin-password" placeholder="••••••••" autocomplete="current-password"/>
+        </div>
+        <button class="btn-submit" id="login-btn">Sign in</button>
         <p class="login-error" id="login-error" hidden></p>
-      </div>
-
-      <div id="login-sent" hidden>
-        <div class="sent-icon">✉</div>
-        <p class="sent-msg">Check your inbox! A login link has been sent. You can close this tab.</p>
-        <button class="btn-submit" id="back-to-login-btn" style="margin-top:1rem;background:transparent;border:1px solid var(--border);color:var(--text-muted)">Try another email</button>
-      </div>
     </div>
   </div>
 

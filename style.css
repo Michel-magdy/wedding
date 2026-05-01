@@ -694,15 +694,23 @@ textarea::placeholder {
   font-weight: 300;
   color: var(--text);
   transition: background 0.3s, color 0.3s;
+  overflow-x: hidden;
 }
 
 /* ─── Login screen ───────────────────────────────────────── */
 .login-screen {
-  min-height: 100vh;
+  position: fixed;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 24px;
+  background: var(--bg-off);
+  z-index: 500;
+}
+
+.login-screen[hidden] {
+  display: none !important;
 }
 
 .login-card {
@@ -750,14 +758,16 @@ textarea::placeholder {
 }
 
 /* Login form fields need boxed style */
-.login-card .field input[type="email"] {
+.login-card .field input[type="email"],
+.login-card .field input[type="password"] {
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 12px 16px;
   background: var(--bg-off);
 }
 
-.login-card .field input[type="email"]:focus {
+.login-card .field input[type="email"]:focus,
+.login-card .field input[type="password"]:focus {
   border-color: var(--brown-warm);
   box-shadow: 0 0 0 3px rgba(160, 120, 80, 0.1);
 }
@@ -788,6 +798,10 @@ textarea::placeholder {
   margin: 0 auto;
   padding: 36px 28px 80px;
   animation: fadeUp 0.5s var(--ease) both;
+}
+
+.dashboard[hidden] {
+  display: none !important;
 }
 
 .dash-header {
@@ -1261,4 +1275,74 @@ textarea::placeholder {
   justify-content: center;
   color: var(--accent);
   margin: 1rem 0;
+}
+
+/* ─── Dark mode badge adjustments ────────────────────────── */
+[data-theme="dark"] .badge-yes {
+  background: rgba(58, 107, 74, 0.2);
+  color: #7cc494;
+}
+
+[data-theme="dark"] .badge-no {
+  background: rgba(139, 58, 58, 0.2);
+  color: #d48888;
+}
+
+[data-theme="dark"] .btn-delete:hover {
+  background: rgba(139, 58, 58, 0.15);
+}
+
+[data-theme="dark"] .modal-overlay {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+/* ─── Admin responsive ───────────────────────────────────── */
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 24px 16px 60px;
+  }
+
+  .dash-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .dash-title {
+    font-size: 1.4rem;
+  }
+
+  .dash-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .stats-bar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+
+  .filter-bar {
+    justify-content: flex-start;
+  }
+
+  .rsvp-table {
+    font-size: 0.8rem;
+  }
+
+  .rsvp-table th,
+  .rsvp-table td {
+    padding: 10px 10px;
+  }
+
+  .note-text {
+    max-width: 140px;
+  }
 }

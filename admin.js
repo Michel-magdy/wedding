@@ -3,10 +3,9 @@ import { supabase } from './config.js'
 // ─── DOM Elements ────────────────────────────────────────────
 const loginScreen   = document.getElementById('login-screen')
 const dashboard     = document.getElementById('dashboard')
-const loginFormWrap = document.getElementById('login-form-wrap')
-const loginSent     = document.getElementById('login-sent')
-const magicBtn      = document.getElementById('magic-link-btn')
+const loginBtn      = document.getElementById('login-btn')
 const emailInput    = document.getElementById('admin-email')
+const passwordInput = document.getElementById('admin-password')
 const loginError    = document.getElementById('login-error')
 const logoutBtn     = document.getElementById('logout-btn')
 const tbody         = document.getElementById('rsvp-tbody')
@@ -49,47 +48,35 @@ if (session) {
   loginScreen.hidden = false
 }
 
-// ─── Magic link ──────────────────────────────────────────────
-magicBtn.addEventListener('click', async () => {
+// ─── Password login ─────────────────────────────────────────
+loginBtn.addEventListener('click', handleLogin)
+
+// Allow Enter key to submit from either field
+emailInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleLogin() })
+passwordInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleLogin() })
+
+async function handleLogin () {
   const email = emailInput.value.trim()
+  const password = passwordInput.value
+
   if (!email) { emailInput.focus(); return }
+  if (!password) { passwordInput.focus(); return }
 
-  magicBtn.disabled = true
-  magicBtn.textContent = 'Sending…'
+  loginBtn.disabled = true
+  loginBtn.textContent = 'Signing in…'
+  loginError.hidden = true
 
-  const { error } = await supabase.auth.signInWithOtp({
-    email,
-    options: { emailRedirectTo: window.location.href }
-  })
+  const { error } = await supabase.auth.signInWithPassword({ email, password })
 
   if (error) {
     loginError.textContent = error.message
     loginError.hidden = false
-    magicBtn.disabled = false
-    magicBtn.textContent = 'Send magic link'
+    loginBtn.disabled = false
+    loginBtn.textContent = 'Sign in'
   } else {
-    emailInput.value = ''
-    loginFormWrap.hidden = true
-    loginSent.hidden = false
-    loginScreen.scrollTo({ top: 0, behavior: 'smooth' })
+    showDashboard()
   }
-})
-
-// ─── Back to login from sent state ───────────────────────────
-const backToLoginBtn = document.getElementById('back-to-login-btn')
-backToLoginBtn?.addEventListener('click', () => {
-  loginSent.hidden = true
-  loginFormWrap.hidden = false
-  magicBtn.disabled = false
-  magicBtn.textContent = 'Send magic link'
-  emailInput.value = ''
-  emailInput.focus()
-})
-
-// ─── Handle magic link redirect ──────────────────────────────
-supabase.auth.onAuthStateChange((_event, session) => {
-  if (session) showDashboard()
-})
+}
 
 // ─── Logout ──────────────────────────────────────────────────
 logoutBtn.addEventListener('click', async () => {
@@ -101,6 +88,7 @@ logoutBtn.addEventListener('click', async () => {
 async function showDashboard () {
   loginScreen.hidden = true
   dashboard.hidden   = false
+  window.scrollTo(0, 0)
   dashDate.textContent = `Last refreshed: ${new Date().toLocaleString()}`
   await loadRsvps()
   subscribeRealtime()
