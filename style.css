@@ -47,6 +47,40 @@ body {
   overflow-x: hidden;
 }
 
+/* ─── Admin Dashboard Theme (Light) ──────────────────────── */
+.admin-body {
+  --bg: #f8fafc;
+  --bg-off: #ffffff;
+  --brown: #6366f1;
+  --brown-dark: #4338ca;
+  --brown-warm: #4f46e5;
+  --brown-btn: #4f46e5;
+  --brown-hover: #4338ca;
+  --text: #0f172a;
+  --text-light: #334155;
+  --text-muted: #64748b;
+  --border: #cbd5e1;
+  --border-lt: #e2e8f0;
+  --accent: #10b981;
+}
+
+/* ─── Admin Dashboard Theme (Dark) ───────────────────────── */
+[data-theme="dark"] .admin-body {
+  --bg: #111827;
+  --bg-off: #1f2937;
+  --brown: #818cf8;
+  --brown-dark: #6366f1;
+  --brown-warm: #a5b4fc;
+  --brown-btn: #4f46e5;
+  --brown-hover: #4338ca;
+  --text: #f9fafb;
+  --text-light: #e5e7eb;
+  --text-muted: #9ca3af;
+  --border: #4b5563;
+  --border-lt: #374151;
+  --accent: #34d399;
+}
+
 /* ─── Animations ─────────────────────────────────────────── */
 @keyframes fadeUp {
   from {
@@ -1412,7 +1446,7 @@ textarea::placeholder {
 }
 
 .settings-body.open {
-  max-height: 600px;
+  max-height: 2000px; /* Increased from 600px to allow scrolling with two venues */
   padding: 0 1.5rem 1.5rem;
 }
 
@@ -1500,111 +1534,68 @@ textarea::placeholder {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   VENUE CARDS (Invite page — Church + Hall)
+   VENUE INFO (Invite page — photo overlay)
 ═══════════════════════════════════════════════════════════ */
-.venues-section {
-  text-align: center;
-  max-width: 900px;
-  margin: 0 auto 48px;
-  padding: 0 28px;
-  animation: fadeUp 0.85s var(--ease) 0.1s both;
-}
-
-.venues-label {
-  font-family: var(--ff-sans);
-  font-size: 0.72rem;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 8px;
-}
-
-.venues-heading {
-  font-family: var(--ff-serif);
-  font-size: clamp(1.8rem, 4vw, 2.6rem);
-  font-weight: 400;
-  font-style: italic;
-  color: var(--brown-warm);
-  margin-bottom: 36px;
-}
-
-.venues-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 28px;
-}
-
-@media (max-width: 640px) {
-  .venues-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-}
-
-.venue-card {
-  background: var(--bg);
-  border: 1px solid var(--border-lt);
-  border-radius: 14px;
-  padding: 2rem 1.5rem 1.75rem;
-  text-align: center;
-  box-shadow: 0 4px 28px rgba(44, 37, 24, 0.07);
-  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
-  position: relative;
-  overflow: hidden;
-}
-
-.venue-card::before {
-  content: '';
+.photo-overlay {
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--brown-btn), var(--accent));
+  padding: 40px 24px 24px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.venue-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 36px rgba(44, 37, 24, 0.12);
+.dual-overlay {
+  /* Flex layout handles the stacking nicely */
 }
 
-.venue-card-icon {
-  font-size: 2rem;
-  margin-bottom: 0.75rem;
+.overlay-block {
+  text-align: left;
 }
 
-.venue-card-title {
+.overlay-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.15);
+  margin: 0;
+}
+
+.overlay-label {
   font-family: var(--ff-sans);
-  font-size: 0.68rem;
-  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 1rem;
-  font-weight: 400;
+  color: #f7e1b5; /* Brighter gold for higher contrast over dark overlay */
+  margin-bottom: 8px;
+  font-weight: 600;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.4);
 }
 
-.venue-card-date {
+.overlay-name {
   font-family: var(--ff-serif);
-  font-size: 1.15rem;
+  font-size: 1.45rem;
   font-style: italic;
-  color: var(--brown-warm);
-  margin-bottom: 0.5rem;
   font-weight: 400;
+  margin-bottom: 2px;
+  line-height: 1.1;
 }
 
-.venue-card-name {
-  font-family: var(--ff-serif);
-  font-size: 1.35rem;
-  font-weight: 400;
-  color: var(--text);
-  margin-bottom: 0.25rem;
-}
-
-.venue-card-address {
+.overlay-date {
   font-family: var(--ff-sans);
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+  opacity: 0.9;
+  margin-bottom: 4px;
+}
+
+.overlay-address {
+  font-family: var(--ff-sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  opacity: 0.7;
 }
 
 /* ─── Google Maps button ─────────────────────────────────── */
@@ -1613,27 +1604,23 @@ textarea::placeholder {
   align-items: center;
   gap: 6px;
   margin-top: 10px;
-  padding: 8px 18px;
-  border-radius: 24px;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  color: #fff;
   font-family: var(--ff-sans);
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   text-decoration: none;
   transition: all 0.25s var(--ease);
 }
 
-/* Card variant (venue cards) */
-.btn-maps-card {
-  background: var(--bg-off);
-  border: 1px solid var(--border);
-  color: var(--brown-warm);
-}
-
-.btn-maps-card:hover {
-  background: var(--brown-btn);
-  border-color: var(--brown-btn);
-  color: #fff;
+.btn-maps:hover {
+  background: rgba(255, 255, 255, 0.25);
   transform: translateY(-1px);
 }
 
@@ -1646,7 +1633,7 @@ textarea::placeholder {
 }
 
 .maps-icon {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 /* ─── Admin: settings section divider ────────────────────── */

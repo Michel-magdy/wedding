@@ -29,48 +29,45 @@
     <h1 class="hero-title">Kindly Respond</h1>
     <p class="hero-subtitle">
       We are so looking forward to celebrating our special day with you.<br />
-      Please let us know your plans by the <strong>fifteenth of May</strong>.
+      Please let us know your plans by the <strong> August 1st </strong>.
     </p>
   </header>
-
-  <!-- ─── Venue Cards (Church + Hall) ────────────────────────── -->
-  <section class="venues-section" id="venues">
-    <p class="venues-label">Celebration</p>
-    <h2 class="venues-heading">Where &amp; When</h2>
-
-    <div class="venues-grid">
-      <!-- Church Card -->
-      <div class="venue-card" id="venue-church-card">
-        <div class="venue-card-icon">⛪</div>
-        <h3 class="venue-card-title">Ceremony</h3>
-        <p class="venue-card-date" id="church-date">—</p>
-        <p class="venue-card-name" id="church-name">—</p>
-        <p class="venue-card-address" id="church-address"></p>
-        <a class="btn-maps btn-maps-card" id="church-maps-btn" href="#" target="_blank" rel="noopener" hidden>
-          <span class="maps-icon">📍</span> Google Maps
-        </a>
-      </div>
-
-      <!-- Hall Card -->
-      <div class="venue-card" id="venue-hall-card">
-        <div class="venue-card-icon">🏛️</div>
-        <h3 class="venue-card-title">Reception</h3>
-        <p class="venue-card-date" id="hall-date">—</p>
-        <p class="venue-card-name" id="hall-name">—</p>
-        <p class="venue-card-address" id="hall-address"></p>
-        <a class="btn-maps btn-maps-card" id="hall-maps-btn" href="#" target="_blank" rel="noopener" hidden>
-          <span class="maps-icon">📍</span> Google Maps
-        </a>
-      </div>
-    </div>
-  </section>
 
   <!-- ─── Two-column RSVP Section ────────────────────────────── -->
   <main class="rsvp-layout">
 
-    <!-- Left: Venue Photo -->
-    <div class="rsvp-photo">
-      <img src="venue.png" alt="Wedding ceremony venue with floral decorations and candles" loading="eager" />
+    <!-- Left Column: Photo + Venue Details -->
+    <div class="rsvp-left">
+      <div class="rsvp-photo">
+        <img src="venue.png" alt="Wedding ceremony venue with floral decorations and candles" loading="eager" />
+
+        <!-- Venue Details Overlay -->
+        <div class="photo-overlay dual-overlay">
+          <!-- Church -->
+          <div class="overlay-block">
+            <p class="overlay-label">Church</p>
+            <p class="overlay-name" id="church-name">Loading…</p>
+            <p class="overlay-date" id="church-date">—</p>
+            <p class="overlay-address" id="church-address"></p>
+            <a class="btn-maps" id="church-maps-btn" href="#" target="_blank" rel="noopener" hidden>
+              <span class="maps-icon">📍</span> Map
+            </a>
+          </div>
+
+          <div class="overlay-divider"></div>
+
+          <!-- Hall -->
+          <div class="overlay-block">
+            <p class="overlay-label">Wedding Hall</p>
+            <p class="overlay-name" id="hall-name">Loading…</p>
+            <p class="overlay-date" id="hall-date">—</p>
+            <p class="overlay-address" id="hall-address"></p>
+            <a class="btn-maps" id="hall-maps-btn" href="#" target="_blank" rel="noopener" hidden>
+              <span class="maps-icon">📍</span> Map
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Right: RSVP Form -->
@@ -124,14 +121,14 @@
         <!-- Song Request -->
         <div class="field">
           <label for="song-request">Song Request</label>
-          <input type="text" id="song-request" name="song_request" placeholder="What song gets you on the dance floor?" />
+          <input type="text" id="song-request" name="song_request"
+            placeholder="What song gets you on the dance floor?" />
         </div>
 
         <!-- Well Wishes -->
         <div class="field">
           <label for="comment">Well Wishes</label>
-          <textarea id="comment" name="comment" rows="3"
-            placeholder="Share a note with the couple..."></textarea>
+          <textarea id="comment" name="comment" rows="3" placeholder="Share a note with the couple..."></textarea>
         </div>
 
         <button type="submit" class="btn-confirm" id="submit-btn">
