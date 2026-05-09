@@ -4,3 +4,7 @@ node_modules/
 .DS_Store
 Thumbs.db
 *.log
+config.js
+migration_settings.sql
+Wedding.zip
+migration.sql
