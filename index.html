@@ -33,16 +33,44 @@
     </p>
   </header>
 
+  <!-- ─── Venue Cards (Church + Hall) ────────────────────────── -->
+  <section class="venues-section" id="venues">
+    <p class="venues-label">Celebration</p>
+    <h2 class="venues-heading">Where &amp; When</h2>
+
+    <div class="venues-grid">
+      <!-- Church Card -->
+      <div class="venue-card" id="venue-church-card">
+        <div class="venue-card-icon">⛪</div>
+        <h3 class="venue-card-title">Ceremony</h3>
+        <p class="venue-card-date" id="church-date">—</p>
+        <p class="venue-card-name" id="church-name">—</p>
+        <p class="venue-card-address" id="church-address"></p>
+        <a class="btn-maps btn-maps-card" id="church-maps-btn" href="#" target="_blank" rel="noopener" hidden>
+          <span class="maps-icon">📍</span> Google Maps
+        </a>
+      </div>
+
+      <!-- Hall Card -->
+      <div class="venue-card" id="venue-hall-card">
+        <div class="venue-card-icon">🏛️</div>
+        <h3 class="venue-card-title">Reception</h3>
+        <p class="venue-card-date" id="hall-date">—</p>
+        <p class="venue-card-name" id="hall-name">—</p>
+        <p class="venue-card-address" id="hall-address"></p>
+        <a class="btn-maps btn-maps-card" id="hall-maps-btn" href="#" target="_blank" rel="noopener" hidden>
+          <span class="maps-icon">📍</span> Google Maps
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- ─── Two-column RSVP Section ────────────────────────────── -->
   <main class="rsvp-layout">
 
     <!-- Left: Venue Photo -->
     <div class="rsvp-photo">
       <img src="venue.png" alt="Wedding ceremony venue with floral decorations and candles" loading="eager" />
-      <div class="photo-overlay">
-        <p class="photo-date">June 7, 2025</p>
-        <p class="photo-venue">The Garden Pavilion, Cairo</p>
-      </div>
     </div>
 
     <!-- Right: RSVP Form -->

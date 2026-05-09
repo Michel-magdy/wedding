@@ -75,6 +75,73 @@
       </div>
     </div>
 
+    <!-- Event Details Settings -->
+    <div class="settings-panel" id="settings-panel">
+      <div class="settings-header" id="settings-toggle">
+        <div class="settings-header-left">
+          <span class="settings-icon">⚙</span>
+          <h2 class="settings-title">Event Details</h2>
+        </div>
+        <span class="settings-chevron" id="settings-chevron">▾</span>
+      </div>
+      <div class="settings-body" id="settings-body">
+        <p class="settings-desc">Set the ceremony and reception details. These will appear on the guest invite page.</p>
+
+        <!-- Church / Ceremony -->
+        <div class="settings-section">
+          <h3 class="settings-section-title">⛪ Church — Ceremony</h3>
+          <div class="settings-grid">
+            <div class="field">
+              <label for="setting-church-date">Date &amp; Time</label>
+              <input type="datetime-local" id="setting-church-date" />
+            </div>
+            <div class="field">
+              <label for="setting-church-venue">Church Name</label>
+              <input type="text" id="setting-church-venue" placeholder="e.g. St. Mary's Cathedral" />
+            </div>
+            <div class="field">
+              <label for="setting-church-address">Address</label>
+              <input type="text" id="setting-church-address" placeholder="e.g. Downtown Cairo" />
+            </div>
+            <div class="field">
+              <label for="setting-church-maps">Google Maps Link</label>
+              <input type="url" id="setting-church-maps" placeholder="https://maps.google.com/..." />
+            </div>
+          </div>
+        </div>
+
+        <!-- Hall / Reception -->
+        <div class="settings-section">
+          <h3 class="settings-section-title">🏛️ Hall — Reception</h3>
+          <div class="settings-grid">
+            <div class="field">
+              <label for="setting-hall-date">Date &amp; Time</label>
+              <input type="datetime-local" id="setting-hall-date" />
+            </div>
+            <div class="field">
+              <label for="setting-hall-venue">Hall Name</label>
+              <input type="text" id="setting-hall-venue" placeholder="e.g. The Garden Pavilion" />
+            </div>
+            <div class="field">
+              <label for="setting-hall-address">Address</label>
+              <input type="text" id="setting-hall-address" placeholder="e.g. Heliopolis, Cairo" />
+            </div>
+            <div class="field">
+              <label for="setting-hall-maps">Google Maps Link</label>
+              <input type="url" id="setting-hall-maps" placeholder="https://maps.google.com/..." />
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-actions">
+          <button class="btn-save-settings" id="save-settings-btn">
+            <span id="save-settings-text">Save Details</span>
+          </button>
+          <span class="settings-saved" id="settings-saved" hidden>✓ Saved</span>
+        </div>
+      </div>
+    </div>
+
     <!-- Toolbar: Search + Filters -->
     <div class="toolbar">
       <input type="text" class="search-input" id="search-input" placeholder="Search by name…" autocomplete="off"/>

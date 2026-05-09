@@ -23,6 +23,55 @@ navLinks?.querySelectorAll('.nav-link').forEach(link => {
   link.addEventListener('click', () => navLinks.classList.remove('open'))
 })
 
+// ─── Venue Details (dynamic from Supabase) ───────────────────
+const churchDateEl    = document.getElementById('church-date')
+const churchNameEl    = document.getElementById('church-name')
+const churchAddressEl = document.getElementById('church-address')
+const churchMapsBtn   = document.getElementById('church-maps-btn')
+
+const hallDateEl    = document.getElementById('hall-date')
+const hallNameEl    = document.getElementById('hall-name')
+const hallAddressEl = document.getElementById('hall-address')
+const hallMapsBtn   = document.getElementById('hall-maps-btn')
+
+function formatEventDate (iso) {
+  if (!iso) return '—'
+  const d = new Date(iso)
+  const date = d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+  const time = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
+  return `${date} · ${time}`
+}
+
+async function loadWeddingDetails () {
+  const { data, error } = await supabase
+    .from('wedding_settings')
+    .select('*')
+    .limit(1)
+    .single()
+
+  if (error || !data) return
+
+  // Church
+  churchDateEl.textContent    = formatEventDate(data.church_date)
+  churchNameEl.textContent    = data.church_name    || '—'
+  churchAddressEl.textContent = data.church_address || ''
+  if (data.church_maps_url) {
+    churchMapsBtn.href   = data.church_maps_url
+    churchMapsBtn.hidden = false
+  }
+
+  // Hall
+  hallDateEl.textContent    = formatEventDate(data.hall_date)
+  hallNameEl.textContent    = data.hall_name    || '—'
+  hallAddressEl.textContent = data.hall_address || ''
+  if (data.hall_maps_url) {
+    hallMapsBtn.href   = data.hall_maps_url
+    hallMapsBtn.hidden = false
+  }
+}
+
+loadWeddingDetails()
+
 // ─── Form Submission ─────────────────────────────────────────
 form.addEventListener('submit', async (e) => {
   e.preventDefault()

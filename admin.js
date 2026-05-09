@@ -15,6 +15,26 @@ const exportBtn     = document.getElementById('export-btn')
 const darkmodeBtn   = document.getElementById('darkmode-btn')
 const modalRoot     = document.getElementById('modal-root')
 
+// Settings panel elements
+const settingsToggle  = document.getElementById('settings-toggle')
+const settingsBody    = document.getElementById('settings-body')
+const settingsChevron = document.getElementById('settings-chevron')
+const saveSettingsBtn = document.getElementById('save-settings-btn')
+const saveSettingsText = document.getElementById('save-settings-text')
+const settingsSaved   = document.getElementById('settings-saved')
+
+// Church fields
+const settingChurchDate    = document.getElementById('setting-church-date')
+const settingChurchVenue   = document.getElementById('setting-church-venue')
+const settingChurchAddress = document.getElementById('setting-church-address')
+const settingChurchMaps    = document.getElementById('setting-church-maps')
+
+// Hall fields
+const settingHallDate    = document.getElementById('setting-hall-date')
+const settingHallVenue   = document.getElementById('setting-hall-venue')
+const settingHallAddress = document.getElementById('setting-hall-address')
+const settingHallMaps    = document.getElementById('setting-hall-maps')
+
 let allRsvps = []
 let currentFilter = 'all'
 let searchQuery = ''
@@ -90,7 +110,7 @@ async function showDashboard () {
   dashboard.hidden   = false
   window.scrollTo(0, 0)
   dashDate.textContent = `Last refreshed: ${new Date().toLocaleString()}`
-  await loadRsvps()
+  await Promise.all([loadRsvps(), loadSettings()])
   subscribeRealtime()
 }
 
@@ -280,6 +300,92 @@ exportBtn.addEventListener('click', () => {
   a.download = `wedding-rsvps-${new Date().toISOString().slice(0, 10)}.csv`
   a.click()
   URL.revokeObjectURL(url)
+})
+
+// ─── Settings Panel (toggle) ─────────────────────────────────
+settingsToggle.addEventListener('click', () => {
+  const isOpen = settingsBody.classList.toggle('open')
+  settingsChevron.textContent = isOpen ? '▴' : '▾'
+})
+
+// ─── Load Settings ───────────────────────────────────────────
+function isoToLocal (iso) {
+  if (!iso) return ''
+  const d = new Date(iso)
+  const pad = n => String(n).padStart(2, '0')
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`
+}
+
+async function loadSettings () {
+  const { data, error } = await supabase
+    .from('wedding_settings')
+    .select('*')
+    .limit(1)
+    .single()
+
+  if (error || !data) return
+
+  // Church fields
+  settingChurchDate.value    = isoToLocal(data.church_date)
+  settingChurchVenue.value   = data.church_name    || ''
+  settingChurchAddress.value = data.church_address  || ''
+  settingChurchMaps.value    = data.church_maps_url || ''
+
+  // Hall fields
+  settingHallDate.value    = isoToLocal(data.hall_date)
+  settingHallVenue.value   = data.hall_name    || ''
+  settingHallAddress.value = data.hall_address  || ''
+  settingHallMaps.value    = data.hall_maps_url || ''
+}
+
+// ─── Save Settings ───────────────────────────────────────────
+saveSettingsBtn.addEventListener('click', async () => {
+  saveSettingsBtn.disabled = true
+  saveSettingsText.textContent = 'Saving…'
+  settingsSaved.hidden = true
+
+  // Get the existing row id
+  const { data: existing } = await supabase
+    .from('wedding_settings')
+    .select('id')
+    .limit(1)
+    .single()
+
+  const payload = {
+    church_date:     settingChurchDate.value ? new Date(settingChurchDate.value).toISOString() : null,
+    church_name:     settingChurchVenue.value.trim()   || null,
+    church_address:  settingChurchAddress.value.trim() || null,
+    church_maps_url: settingChurchMaps.value.trim()    || null,
+    hall_date:       settingHallDate.value ? new Date(settingHallDate.value).toISOString() : null,
+    hall_name:       settingHallVenue.value.trim()     || null,
+    hall_address:    settingHallAddress.value.trim()   || null,
+    hall_maps_url:   settingHallMaps.value.trim()      || null,
+    updated_at:      new Date().toISOString()
+  }
+
+  let result
+  if (existing?.id) {
+    result = await supabase
+      .from('wedding_settings')
+      .update(payload)
+      .eq('id', existing.id)
+  } else {
+    result = await supabase
+      .from('wedding_settings')
+      .insert(payload)
+  }
+
+  saveSettingsBtn.disabled = false
+  saveSettingsText.textContent = 'Save Details'
+
+  if (result.error) {
+    console.error(result.error)
+    saveSettingsText.textContent = 'Error!'
+    setTimeout(() => { saveSettingsText.textContent = 'Save Details' }, 2000)
+  } else {
+    settingsSaved.hidden = false
+    setTimeout(() => { settingsSaved.hidden = true }, 3000)
+  }
 })
 
 // ─── Helpers ─────────────────────────────────────────────────
