@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 
 <head>
   <meta charset="UTF-8" />
@@ -9,7 +9,7 @@
     content="Join us for the wedding celebration of Sandra and Mark. RSVP to confirm your attendance." />
   <link rel="stylesheet" href="style.css" />
   <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=Noto+Kufi+Arabic:wght@300;400;500;600&display=swap"
     rel="stylesheet" />
 </head>
 
@@ -18,6 +18,9 @@
   <!-- ─── Navigation ─────────────────────────────────────────── -->
   <nav class="navbar" id="navbar">
     <a href="#" class="nav-brand">Sandra &amp; Mark</a>
+    <button class="lang-toggle" id="lang-toggle" type="button" aria-label="Switch language">
+      <span class="lang-toggle-text" id="lang-toggle-text">عربي</span>
+    </button>
   </nav>
 
   <!-- ─── Accent stripe ─────────────────────────────────────── -->
@@ -25,9 +28,9 @@
 
   <!-- ─── Hero / Header ──────────────────────────────────────── -->
   <header class="hero-header" id="rsvp">
-    <p class="hero-label">Reservation</p>
-    <h1 class="hero-title">Kindly Respond</h1>
-    <p class="hero-subtitle">
+    <p class="hero-label" data-i18n="hero_label">Reservation</p>
+    <h1 class="hero-title" data-i18n="hero_title">Kindly Respond</h1>
+    <p class="hero-subtitle" data-i18n="hero_subtitle">
       We are so looking forward to celebrating our special day with you.<br />
       Please let us know your plans by the <strong> August 1st </strong>.
     </p>
@@ -45,12 +48,12 @@
         <div class="photo-overlay dual-overlay">
           <!-- Church -->
           <div class="overlay-block">
-            <p class="overlay-label">Church</p>
+            <p class="overlay-label" data-i18n="venue_church">Church</p>
             <p class="overlay-name" id="church-name">Loading…</p>
             <p class="overlay-date" id="church-date">—</p>
             <p class="overlay-address" id="church-address"></p>
             <a class="btn-maps" id="church-maps-btn" href="#" target="_blank" rel="noopener" hidden>
-              <span class="maps-icon">📍</span> Map
+              <span class="maps-icon">📍</span> <span data-i18n="btn_map">Map</span>
             </a>
           </div>
 
@@ -58,12 +61,12 @@
 
           <!-- Hall -->
           <div class="overlay-block">
-            <p class="overlay-label">Wedding Hall</p>
+            <p class="overlay-label" data-i18n="venue_hall">Wedding Hall</p>
             <p class="overlay-name" id="hall-name">Loading…</p>
             <p class="overlay-date" id="hall-date">—</p>
             <p class="overlay-address" id="hall-address"></p>
             <a class="btn-maps" id="hall-maps-btn" href="#" target="_blank" rel="noopener" hidden>
-              <span class="maps-icon">📍</span> Map
+              <span class="maps-icon">📍</span> <span data-i18n="btn_map">Map</span>
             </a>
           </div>
         </div>
@@ -76,15 +79,16 @@
 
         <!-- Full Name -->
         <div class="field">
-          <label for="full-name">Full Name</label>
-          <input type="text" id="full-name" name="full_name" placeholder="As written on invitation" required
-            autocomplete="name" />
+          <label for="full-name" data-i18n="label_name">Full Name</label>
+          <input type="text" id="full-name" name="full_name" data-i18n-placeholder="placeholder_name"
+            placeholder="As written on invitation" required autocomplete="name" />
         </div>
 
         <!-- Email -->
-        <div class="field">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" placeholder="For confirmation details" autocomplete="email" />
+        <div class="field" style="display: none;">
+          <label for="email" data-i18n="label_email">Email Address</label>
+          <input type="email" id="email" name="email" data-i18n-placeholder="placeholder_email"
+            placeholder="For confirmation details" autocomplete="email" />
         </div>
 
         <!-- Phone (hidden, less prominent) -->
@@ -92,58 +96,59 @@
 
         <!-- Attending? -->
         <div class="field">
-          <label>Will you attend?</label>
+          <label data-i18n="label_attend">Will you attend?</label>
           <div class="radio-row" id="radio-group">
             <label class="radio-pill">
               <input type="radio" name="coming" value="yes" required />
-              <span class="radio-pill-label">Joyfully Accept</span>
+              <span class="radio-pill-label" data-i18n="radio_accept">Joyfully Accept</span>
             </label>
             <label class="radio-pill">
               <input type="radio" name="coming" value="no" />
-              <span class="radio-pill-label">Regretfully Decline</span>
+              <span class="radio-pill-label" data-i18n="radio_decline">Regretfully Decline</span>
             </label>
           </div>
         </div>
 
         <!-- Number of Guests -->
         <div class="field">
-          <label for="guest-count">Number of Guests</label>
+          <label for="guest-count" data-i18n="label_guests">Number of Guests</label>
           <select id="guest-count" name="guest_count">
-            <option value="1">1 Guest</option>
-            <option value="2">2 Guests</option>
-            <option value="3">3 Guests</option>
-            <option value="4">4 Guests</option>
-            <option value="5">5 Guests</option>
-            <option value="6">6+ Guests</option>
+            <option value="1" data-i18n="guest_1">1 Guest</option>
+            <option value="2" data-i18n="guest_2">2 Guests</option>
+            <option value="3" data-i18n="guest_3">3 Guests</option>
+            <option value="4" data-i18n="guest_4">4 Guests</option>
+            <option value="5" data-i18n="guest_5">5 Guests</option>
+            <option value="6" data-i18n="guest_6">6+ Guests</option>
           </select>
         </div>
 
         <!-- Song Request -->
         <div class="field">
-          <label for="song-request">Song Request</label>
-          <input type="text" id="song-request" name="song_request"
+          <label for="song-request" data-i18n="label_song">Song Request</label>
+          <input type="text" id="song-request" name="song_request" data-i18n-placeholder="placeholder_song"
             placeholder="What song gets you on the dance floor?" />
         </div>
 
         <!-- Well Wishes -->
         <div class="field">
-          <label for="comment">Well Wishes</label>
-          <textarea id="comment" name="comment" rows="3" placeholder="Share a note with the couple..."></textarea>
+          <label for="comment" data-i18n="label_wishes">Well Wishes</label>
+          <textarea id="comment" name="comment" rows="3" data-i18n-placeholder="placeholder_wishes"
+            placeholder="Share a note with the couple..."></textarea>
         </div>
 
         <button type="submit" class="btn-confirm" id="submit-btn">
-          <span class="btn-text">Confirm Attendance</span>
-          <span class="btn-loading" hidden>Sending…</span>
+          <span class="btn-text" data-i18n="btn_submit">Confirm Attendance</span>
+          <span class="btn-loading" data-i18n="btn_sending" hidden>Sending…</span>
         </button>
 
-        <p class="form-note">A confirmation email will be sent to the address provided.</p>
+        <p class="form-note" data-i18n="form_note">A confirmation email will be sent to the address provided.</p>
       </form>
 
       <!-- Thank you state -->
       <div class="thankyou" id="thankyou" hidden>
         <div class="thankyou-icon">✓</div>
         <h3>Thank you, <span id="thankyou-name"></span>!</h3>
-        <p>Your reply has been received.<br />We can't wait to celebrate with you.</p>
+        <p data-i18n="thankyou_msg">Your reply has been received.<br />We can't wait to celebrate with you.</p>
       </div>
     </div>
 
@@ -151,7 +156,8 @@
 
   <!-- ─── Footer ─────────────────────────────────────────────── -->
   <footer class="site-footer">
-    <p>For any enquiries, reach us at <a href="mailto:sandra.2025@gmail.com">sandra.@gmail.com</a></p>
+    <p data-i18n="footer_contact">For any enquiries, reach us at <a
+        href="mailto:sandra.2025@gmail.com">sandra.@gmail.com</a></p>
     <p class="footer-copy">&copy; 2025 Sandra &amp; Mark</p>
   </footer>
 

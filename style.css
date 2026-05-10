@@ -1657,3 +1657,168 @@ textarea::placeholder {
   color: var(--text);
   margin-bottom: 1rem;
 }
+
+/* ═══════════════════════════════════════════════════════════
+   LANGUAGE TOGGLE
+═══════════════════════════════════════════════════════════ */
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: transparent;
+  cursor: pointer;
+  font-family: 'Noto Kufi Arabic', var(--ff-sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  transition: all 0.25s var(--ease);
+  position: absolute;
+  right: 48px;
+}
+
+.lang-toggle:hover {
+  border-color: var(--brown-warm);
+  color: var(--brown-warm);
+  background: rgba(193, 154, 91, 0.06);
+}
+
+.lang-toggle:active {
+  transform: scale(0.96);
+}
+
+.navbar {
+  position: relative;
+}
+
+@media (max-width: 680px) {
+  .lang-toggle {
+    right: 20px;
+    padding: 5px 12px;
+    font-size: 0.72rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RTL / ARABIC SUPPORT
+═══════════════════════════════════════════════════════════ */
+html[dir="rtl"] {
+  --ff-sans-ar: 'Noto Kufi Arabic', 'Jost', sans-serif;
+  --ff-serif-ar: 'Noto Kufi Arabic', 'Cormorant Garamond', Georgia, serif;
+}
+
+html[dir="rtl"] body {
+  font-family: var(--ff-sans-ar);
+}
+
+/* ─── Navbar RTL ─────────────────────────────────────────── */
+html[dir="rtl"] .lang-toggle {
+  right: auto;
+  left: 48px;
+}
+
+@media (max-width: 680px) {
+  html[dir="rtl"] .lang-toggle {
+    right: auto;
+    left: 20px;
+  }
+}
+
+/* ─── Hero RTL ───────────────────────────────────────────── */
+html[dir="rtl"] .hero-label {
+  font-family: var(--ff-sans-ar);
+  letter-spacing: 0.05em;
+}
+
+html[dir="rtl"] .hero-title {
+  font-family: var(--ff-sans-ar);
+  font-style: normal;
+  font-weight: 600;
+}
+
+html[dir="rtl"] .hero-subtitle {
+  font-family: var(--ff-sans-ar);
+}
+
+/* ─── Form RTL ───────────────────────────────────────────── */
+html[dir="rtl"] .field > label {
+  font-family: var(--ff-sans-ar);
+  letter-spacing: 0.02em;
+}
+
+html[dir="rtl"] input[type="text"],
+html[dir="rtl"] input[type="email"],
+html[dir="rtl"] input[type="tel"],
+html[dir="rtl"] textarea {
+  font-family: var(--ff-sans-ar);
+  text-align: right;
+}
+
+html[dir="rtl"] select {
+  font-family: var(--ff-sans-ar);
+  text-align: right;
+  background-position: left 4px center;
+  padding-right: 0;
+  padding-left: 24px;
+}
+
+html[dir="rtl"] .radio-pill {
+  font-family: var(--ff-sans-ar);
+  font-style: normal;
+}
+
+html[dir="rtl"] .radio-pill-label {
+  font-family: var(--ff-sans-ar);
+}
+
+html[dir="rtl"] .btn-confirm {
+  font-family: var(--ff-sans-ar);
+  letter-spacing: 0.04em;
+}
+
+html[dir="rtl"] .form-note {
+  font-family: var(--ff-sans-ar);
+}
+
+/* ─── Venue overlay RTL ──────────────────────────────────── */
+html[dir="rtl"] .overlay-block {
+  text-align: right;
+}
+
+html[dir="rtl"] .overlay-label {
+  font-family: var(--ff-sans-ar);
+  letter-spacing: 0.05em;
+}
+
+html[dir="rtl"] .overlay-name {
+  font-family: var(--ff-sans-ar);
+  font-style: normal;
+}
+
+html[dir="rtl"] .overlay-date,
+html[dir="rtl"] .overlay-address {
+  font-family: var(--ff-sans-ar);
+}
+
+html[dir="rtl"] .btn-maps {
+  font-family: var(--ff-sans-ar);
+  flex-direction: row-reverse;
+}
+
+/* ─── Thank you RTL ──────────────────────────────────────── */
+html[dir="rtl"] .thankyou h3 {
+  font-family: var(--ff-sans-ar);
+  font-style: normal;
+}
+
+html[dir="rtl"] .thankyou p {
+  font-family: var(--ff-sans-ar);
+}
+
+/* ─── Footer RTL ─────────────────────────────────────────── */
+html[dir="rtl"] .site-footer {
+  font-family: var(--ff-sans-ar);
+}
